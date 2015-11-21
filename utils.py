@@ -6,56 +6,71 @@ class Int(object):
     def __str__(self):
         return repr(self.value)
 
+    def __repr__(self):
+        return repr(self.value)
+
     def __lt__(self, other):
-        return self.value < other.value
+        return self.value < other
 
     def __le__(self, other):
-        return self.value <= other.value
+        return self.value <= other
 
     def __gt__(self, other):
-        return self.value > other.value
+        return self.value > other
 
     def __ge__(self, other):
-        return self.value >= other.value
+        return self.value >= other
 
     def __eq__(self, other):
-        return self.value == other.value
+        return self.value == other
 
     def __ne__(self, other):
-        return self.value == other.value
+        return self.value == other
 
-    def __add__(self, other):
-        return self.value + other.value
+    def __iadd__(self, other):
+        self.value += other
+        return self
 
-    def __sub__(self, other):
-        return self.value - other.value
+    def __isub__(self, other):
+        self.value -= other
+        return self
 
-    def __mul__(self, other):
-        return self.value * other.value
+    def __imul__(self, other):
+        self.value *= other
+        return self
 
-    def __truediv__(self, other):
-        return self.value / other.value
+    def __itruediv__(self, other):
+        self.value /= other
+        return self
 
     def __mod__(self, other):
-        return self.value % other.value
+        return self.value % other
 
-    def __and__(self, other):
-        return self.value & other.value
+    def __iand__(self, other):
+        self.value &= other
+        return self
 
-    def __or__(self, other):
-        return self.value | other.value
+    def __ior__(self, other):
+        self.value |= other
+        return self
 
-    def __xor__(self, other):
-        return self.value ^ other.value
+    def __ixor__(self, other):
+        self.value ^= other
+        return self
 
-    def __rshift__(self, other):
-        return self.value >> other.value
+    def __irshift__(self, other):
+        self.value >>= other
+        return self
 
-    def __lshift__(self, other):
-        return self.value << other.value
+    def __ilshift__(self, other):
+        self.value <<= other
+        return self
 
     def __invert__(self):
         return ~self.value
 
     def __int__(self):
         return self.value
+
+    def set(self, v):
+        self.value = v

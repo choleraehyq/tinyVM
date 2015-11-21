@@ -15,90 +15,93 @@ class Vm(object):
 
     def run(self):
         self.parse()
-        for i in self.p.instrs:
+        i = Int(0)
+        while self.p.instrs[int(i)] != opcode._OP_END:
+            print(i)
             self.runInstruction(i)
+            i += 1
 
     def runInstruction(self, instrIndex):
-        instr = self.p.instrs[instrIndex]
-        a0, a1 = instrIndex*2, (instrIndex*2)+1
+        instr = self.p.instrs[int(instrIndex)]
+        a0, a1 = int(instrIndex)*2, (int(instrIndex)*2)+1
         if instr == opcode._OP_NOP:
             pass
         elif instr == opcode._OP_INT:
             raise NotImplementedException
         elif instr == opcode._OP_MOV:
-            self.p.args[a0] = Int(int(self.p.args[a1]))
+            self.p.args[a0].set(int(self.p.args[a1]))
         elif instr == opcode._OP_PUSH:
             self.m.push_stack(self.p.args[a0])
         elif instr == opcode._OP_POP:
-            self.p.args[a0] = Int(self.m.pop_stack())
+            self.p.args[a0].set(self.m.pop_stack())
         elif instr == opcode._OP_PUSHF:
             self.m.push_stack(self.m.FLAGS)
         elif instr == opcode._OP_POPF:
             self.m.FLAGS = self.m.pop_stack()
         elif instr == opcode._OP_INC:
-            self.p.args[a0] += Int(1)
+            self.p.args[a0] += 1
         elif instr == opcode._OP_DEC:
-            self.p.args[a0] -= Int(1)
+            self.p.args[a0] -= 1
         elif instr == opcode._OP_ADD:
-            self.p.args[a0] += self.p.args[a1]
+            self.p.args[a0] += int(self.p.args[a1])
         elif instr == opcode._OP_SUB:
-            self.p.args[a0] -= self.p.args[a1]
+            self.p.args[a0] -= int(self.p.args[a1])
         elif instr == opcode._OP_MUL:
-            self.p.args[a0] *= self.p.args[a1]
+            self.p.args[a0] *= int(self.p.args[a1])
         elif instr == opcode._OP_DIV:
-            self.p.args[a0] /= self.p.args[a1]
+            self.p.args[a0] /= int(self.p.args[a1])
         elif instr == opcode._OP_MOD:
-            self.m.remainder = self.p.args[a0] % self.p.args[a1]
+            self.m.remainder = self.p.args[a0] % int(self.p.args[a1])
         elif instr == opcode._OP_REM:
-            self.p.args[a0] = Int(self.m.remainder)
+            self.p.args[a0].set(Int(self.m.remainder))
         elif instr == opcode._OP_AND:
-            self.p.args[a0] &= self.p.args[a1]
+            self.p.args[a0] &= int(self.p.args[a1])
         elif instr == opcode._OP_SHL:
-            if self.p.args[a1] > Int(0):
-                self.p.args[a0] <<= self.p.args[a1]
+            if self.p.args[a1] > 0:
+                self.p.args[a0] <<= int(self.p.args[a1])
         elif instr == opcode._OP_SHR:
-            if self.p.args[a1] > Int(0):
-                self.p.args[a0] >>= self.p.args[a1]
+            if self.p.args[a1] > 0:
+                self.p.args[a0] >>= int(self.p.args[a1])
         elif instr == opcode._OP_NOT:
             self.p.args[a0] = ~self.p.args[a0]
         elif instr == opcode._OP_OR:
-            self.p.args[a0] |= self.p.args[a1]
+            self.p.args[a0] |= int(self.p.args[a1])
         elif instr == opcode._OP_XOR:
-            self.p.args[a0] ^= self.p.args[a1]
+            self.p.args[a0] ^= int(self.p.args[a1])
         elif instr == opcode._OP_CMP:
-            if self.p.args[a0] == self.p.args[a1]:
+            if self.p.args[a0] == int(self.p.args[a1]):
                 self.m.FLAGS = 0x1
-            elif self.p.args[a0] > self.p.args[a1]:
+            elif self.p.args[a0] > int(self.p.args[a1]):
                 self.m.FLAGS = 0x2
             else:
                 self.m.FLAGS = 0x0
         elif instr == opcode._OP_CALL:
-            self.m.push_stack(instrIndex)
-            instrIndex = int(self.p.args[a0])-1
+            self.m.push_stack(int(instrIndex))
+            instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_JMP:
-            instrIndex = int(self.p.args[a0])-1
+            instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_RET:
-            instrIndex =  self.m.pop_stack()
+            instrIndex.set(self.m.pop_stack())
         elif instr == opcode._OP_JE:
             if self.m.FLAGS & 0x1 != 0:
-                instrIndex = int(self.p.args[a0])
+                instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_JNE:
             if self.m.FLAGS & 0x1 == 0:
-                instrIndex = int(self.p.args[a0])
+                instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_JG:
             if self.m.FLAGS & 0x2 != 0:
-                instrIndex = int(self.p.args[a0])
+                instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_JGE:
             if self.m.FLAGS & 0x3 != 0:
-                instrIndex = int(self.p.args[a0])
+                instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_JL:
             if self.m.FLAGS & 0x3 == 0:
-                instrIndex = int(self.p.args[a0])
+                instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_JLE:
             if self.m.FLAGS & 0x2 == 0:
-                instrIndex = int(self.p.args[a0])
+                instrIndex.set(int(self.p.args[a0])-1)
         elif instr == opcode._OP_PRN:
-            print(a0)
+            print(self.p.args[a0])
 
     def parse_value(self, tok, instrIndex, argIndex):
         number = toValue(tok)
@@ -167,13 +170,13 @@ class Vm(object):
 
         self.p.args = [Int(0) for i in range(len(self.p.instrs) * 2)]
 
-        instrIndex = 0
-        argIndex = 0
+        instrIndex = -1
         for toks in lines:
             hasInstr = False
+            argIndex = 0
             for tok in toks:
                 if tok.startswith('#'):
-                    continue
+                    break
                 if tok.endswith(':'):
                     continue
                 if tok in opset:
@@ -204,7 +207,7 @@ def parse_line(line):
 
 def toValue(tok):
     sepIndex = tok.find('|')
-    base = 0
+    base = 10
     val = tok
     if sepIndex > 0 and sepIndex < len(tok)-1:
         val = tok[:sepIndex]
@@ -215,7 +218,7 @@ def toValue(tok):
             'o': 8,
             'b': 2,
         }[baseFlag]
-    elif tok.startswith('0') and not tok[1].isdigit():
+    elif len(tok) >= 3 and tok.startswith('0') and not tok[1].isdigit():
         val = tok[2:]
         baseFlag = tok[1]
         base = {
@@ -230,14 +233,7 @@ def toValue(tok):
 def parse_int(s, base):
     if not is_valid_number(s, base):
         raise ValueError("{0} is not a valid number in base {1}".format(s, base))
-    ret = 0
-    for i in s:
-        if i >= 'a' and i <= 'f':
-            i = ord(i) - ord('a') + 10
-        else:
-            i = ord(i) - ord('0')
-        ret = ret * base + i
-    return ret
+    return int(s, base=base)
 
 def is_valid_number(s, base):
     for i in s:

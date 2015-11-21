@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, IntEnum
 
 class opcode(Enum):
 	_OP_END = 1
@@ -35,7 +35,7 @@ class opcode(Enum):
 	_OP_JLE = 32
 	_OP_PRN = 33
 
-class register(Enum):
+class register(IntEnum):
 	_RG_EAX = 0
 	_RG_EBX = 1
 	_RG_ECX = 2

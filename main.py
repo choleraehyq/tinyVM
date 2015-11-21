@@ -4,9 +4,9 @@ from vm import Vm
 
 def main():
 	parser = argparse.ArgumentParser(description="A Tiny VM written in Python")
-	parser.add_argument('--file', dest='filename', help='the source file')
-	parser.parse_args()
-	with open(parser.filename) as srcfile:
+	parser.add_argument('--file', dest="filepath", help='the source file')
+	args = parser.parse_args()
+	with open(args.filepath) as srcfile:
 		instance = Vm(srcfile)
 		instance.run() 
 
