@@ -6,9 +6,15 @@ This is my first attempt at a VM, so huge thanks to GenTiradentes for making a m
 
 ## Run
 
-`python ./main.py ./examples/fib.vm`
+This tinyVM depend on module enum. Module enum has already been a part of standard library in python 3.4+, if you are using other versions of python please run
 
-Attention: tinyVM is written in Python3. No compatibility to Python2. 
+`pip install enum34`
+
+to install it.
+
+`cd` to this directory
+
+`python ./main.py --file /path/to/source`
 
 ## License
 

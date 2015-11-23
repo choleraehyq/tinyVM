@@ -1,4 +1,4 @@
-import itertools
+from __future__ import print_function, absolute_import
 
 from memory import Memory
 from program import Program
@@ -201,7 +201,7 @@ def parse_line(line):
     line = line.strip()
     for i in line.split(' '):
         tokens.extend(i.split(','))
-    tokens = list(itertools.filterfalse(lambda x: x == "", tokens))
+    tokens = list(filter(lambda x: x != "", tokens))
     tokens = [x.lower() for x in tokens]
     return tokens
 

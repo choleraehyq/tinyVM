@@ -1,3 +1,4 @@
+from __future__ import with_statement, absolute_import
 import argparse
 from vm import Vm
 
