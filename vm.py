@@ -17,7 +17,6 @@ class Vm(object):
         self.parse()
         i = Int(0)
         while self.p.instrs[int(i)] != opcode._OP_END:
-            print(i)
             self.runInstruction(i)
             i += 1
 
