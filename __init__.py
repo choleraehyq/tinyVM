@@ -1,1 +1,1 @@
-__author__ == "Cholerae Hu"
+__author__ = "Cholerae Hu"
