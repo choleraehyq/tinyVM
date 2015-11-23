@@ -4,6 +4,10 @@ This tinyVM is an implementation of [GenTiradentes' TinyVM][tvm] in Python (the 
 
 This is my first attempt at a VM, so huge thanks to GenTiradentes for making a minimal one, easy to grasp. Also, [Specter][specter](the Go version) inspired me much, thanks to its author. 
 
+## Run
+
+python ./main.py ./examples/fib.vm
+
 ## License
 
 The [BSD 2-Clause license][bsd].
