@@ -1,3 +1,9 @@
+'''
+Python do not support reference passing of int variables, 
+so I must wrap int variables in Int objects to implement registers.
+The 'other' parameters below are int variables not Int.
+'''
+
 class Int(object):
 
     def __init__(self, value):
