@@ -6,7 +6,9 @@ This is my first attempt at a VM, so huge thanks to GenTiradentes for making a m
 
 ## Run
 
-python ./main.py ./examples/fib.vm
+`python ./main.py ./examples/fib.vm`
+
+Attention: tinyVM is written in Python3. No compatibility to Python2. 
 
 ## License
 
